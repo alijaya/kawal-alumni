@@ -1,0 +1,63 @@
+<!--
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/firebase-element/firebase.html">
+
+<dom-module id="kawal-alumni-database">
+  <script>
+  (function() {
+    'use strict';
+
+    Polymer({
+      is: 'kawal-alumni-database',
+
+      properties: {
+        data: {
+          type: Object,
+          readOnly: true,
+          notify: true,
+          value: function() {
+            return {
+              get: function(sort, page, pageSize) {
+                return new Promise(function(resolve, reject) {
+                  this.firebase
+                      .orderByChild(sort.property)
+                      .limitToFirst(pageSize)
+                      .once('value', function(snapshot) {
+                    var result = [];
+                    snapshot.forEach(function(data) {
+                      var val = data.val();
+                      val['__firebaseKey__'] = data.key();
+                      result.push(val);
+                    });
+                    resolve(result);
+                  }.bind(this));
+                }.bind(this));
+              }.bind(this),
+              set: function(id, property, value) {
+                console.log(id);
+                console.log(property);
+                console.log(value);
+              },
+              length: 10
+            };
+          }
+        }
+      },
+
+      ready: function() {
+        this.location = 'https://dinosaur-facts.firebaseio.com/dinosaurs';
+        this.firebase = new Firebase(this.location);
+      }
+    });
+  })();
+  </script>
+</dom-module>

@@ -27,7 +27,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           value: function() {
             return {
               get: function(sort, page, pageSize) {
-                return new Promise(function(resolve, reject) {
+                return new Promise(function(resolve) {
                   this.firebase
                       .orderByChild(sort.property)
                       .limitToFirst(pageSize)
@@ -35,7 +35,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                     var result = [];
                     snapshot.forEach(function(data) {
                       var val = data.val();
-                      val['__firebaseKey__'] = data.key();
+                      val.__firebaseKey__ = data.key();
                       result.push(val);
                     });
                     resolve(result);

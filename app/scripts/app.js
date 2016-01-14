@@ -42,7 +42,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   });
 
   app.allSet.catch(function(err) {
-    console.log(err, "Error Timeout");
+    console.log(err, 'Error Timeout');
   });
 
   // See https://github.com/Polymer/polymer/issues/1381

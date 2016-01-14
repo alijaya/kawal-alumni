@@ -9,6 +9,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 -->
 
 <link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../facebook-api/facebook-api.html">
 
 <dom-module id="kawal-alumni-fb">
   <template>
@@ -17,7 +18,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         display: block;
       }
     </style>
-    <div>Hello from <span>{{foo}}</span></div>
+    <facebook-api loaded="{{loaded}}"></facebook-api>
   </template>
   <script>
   (function() {
@@ -27,11 +28,55 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       is: 'kawal-alumni-fb',
 
       properties: {
-        foo: {
-          type: String,
-          value: 'kawal-alumni-fb',
-          notify: true
-        }
+      },
+
+      ready: function() {
+        var appId = '458822080980309';
+        var groupId = '125955486734';
+
+        this.loaded.then(function(fb) {
+          fb.init({
+            appId:    appId,
+            xfbml:    true,
+            version:  'v2.5'
+          });
+
+          var login = new Promise(function(resolve, reject) {
+            fb.getLoginStatus(function(response) {
+              if (false && response.status === 'connected') {
+                resolve(response);
+              } else {
+                reject(response);
+              }
+            });
+          });
+
+          login.catch(function() {
+            return new Promise(function(resolve, reject) {
+              fb.login(function(response) {
+                if (response.error) {
+                  reject(response.error);
+                } else {
+                  resolve(response);
+                }
+              }, {scope: 'email,user_managed_groups'});
+            });
+          }).then(function() {
+            return new Promise(function(resolve, reject) {
+              fb.api('/' + groupId, function(response) {
+                if (response.error) {
+                  reject(response.error);
+                } else {
+                  resolve(response);
+                }
+              });
+            });
+          }).then(function(response) {
+            console.log(response);
+          }).catch(function(err) {
+            console.log(err);
+          });
+        });
       }
     });
   })();

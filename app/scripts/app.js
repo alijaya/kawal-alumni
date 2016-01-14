@@ -87,16 +87,4 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     app.$.paperDrawerPanel.closeDrawer();
   };
 
-  app.allSet.then(function() {
-    var table = app.$.table;
-    table.formatOlimpiade = function(item, value, field) {
-      return item.olimpiade[value][field];
-    };
-    table.formatEmail = function(item, value) {
-      return item.email[value];
-    };
-    table.formatTelepon = function(item, value) {
-      return item.telepon[value];
-    };
-  });
 })(document);

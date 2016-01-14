@@ -118,83 +118,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <!-- Main Content -->
         <div class="content">
           <iron-pages attr-for-selected="data-route" selected="{{route}}">
-
             <section data-route="home">
-              <template is="dom-bind" id="table">
-                <paper-material elevation="1" class="table">
-                  <firebase-collection
-                    location="https://kawal-alumni.firebaseio.com/peserta"
-                    data={{data}}></firebase-collection>
-                  <paper-datatable data="[[data]]">
-                    <paper-datatable-column header="Nama" property="__firebaseKey__" sortable>
-                    </paper-datatable-column>
-                    <paper-datatable-column header="Bidang" property="olimpiade_utama" sortable>
-                      <template>
-                        {{formatOlimpiade(item,value,'bidang')}}
-                      </template>
-                    </paper-datatable-column>
-                    <paper-datatable-column header="Peringkat" property="olimpiade_utama" sortable>
-                      <template>
-                        {{formatOlimpiade(item,value,'peringkat')}}
-                      </template>
-                    </paper-datatable-column>
-                    <paper-datatable-column header="Olimpiade" property="olimpiade_utama" sortable>
-                      <template>
-                        {{formatOlimpiade(item,value,'nama')}}
-                      </template>
-                    </paper-datatable-column>
-                    <paper-datatable-column header="Tahun" property="olimpiade_utama" sortable>
-                      <template>
-                        {{formatOlimpiade(item,value,'tahun')}}
-                      </template>
-                    </paper-datatable-column>
-                    <paper-datatable-column header="Tingkat" property="olimpiade_utama" sortable>
-                      <template>
-                        {{formatOlimpiade(item,value,'tingkat')}}
-                      </template>
-                    </paper-datatable-column>
-                    <paper-datatable-column header="Email" property="email_utama" sortable>
-                      <template>
-                        {{formatEmail(item,value)}}
-                      </template>
-                    </paper-datatable-column>
-                    <paper-datatable-column header="Telepon" property="telepon_utama" sortable>
-                      <template>
-                        {{formatTelepon(item,value)}}
-                      </template>
-                    </paper-datatable-column>
-                    <paper-datatable-column header="Negara" property="negara" sortable></paper-datatable-column>
-                    <paper-datatable-column header="Kota" property="kota" sortable></paper-datatable-column>
-                  </paper-datatable>
-                </paper-material>
-              </template>
             </section>
-
-            <section data-route="users">
-              <paper-material elevation="1">
-                <h2 class="page-title">Users</h2>
-                <p>This is the users section</p>
-                <a href$="{{baseUrl}}users/Addy">Addy</a><br>
-                <a href$="{{baseUrl}}users/Rob">Rob</a><br>
-                <a href$="{{baseUrl}}users/Chuck">Chuck</a><br>
-                <a href$="{{baseUrl}}users/Sam">Sam</a>
-              </paper-material>
-            </section>
-
-            <section data-route="user-info">
-              <paper-material elevation="1">
-                <h2 class="page-title">User: {{params.name}}</h2>
-                <div>This is {{params.name}}'s section</div>
-              </paper-material>
-            </section>
-
-            <section data-route="contact">
-              <paper-material elevation="1">
-                <h2 class="page-title">Contact</h2>
-                <p>This is the contact section</p>
-              </paper-material>
-            </section>
-
           </iron-pages>
         </div>
       </paper-scroll-header-panel>

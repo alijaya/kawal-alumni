@@ -1,0 +1,92 @@
+<!--
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<dom-module id="kawal-alumni-table">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+    <paper-material elevation="1" class="table">
+      <firebase-collection
+        location="https://kawal-alumni.firebaseio.com/peserta"
+        data={{data}}></firebase-collection>
+      <paper-datatable data="[[data]]">
+        <paper-datatable-column header="Nama" property="__firebaseKey__" sortable>
+        </paper-datatable-column>
+        <paper-datatable-column header="Bidang" property="olimpiade_utama" sortable>
+          <template>
+            {{formatOlimpiade(item,value,'bidang')}}
+          </template>
+        </paper-datatable-column>
+        <paper-datatable-column header="Peringkat" property="olimpiade_utama" sortable>
+          <template>
+            {{formatOlimpiade(item,value,'peringkat')}}
+          </template>
+        </paper-datatable-column>
+        <paper-datatable-column header="Olimpiade" property="olimpiade_utama" sortable>
+          <template>
+            {{formatOlimpiade(item,value,'nama')}}
+          </template>
+        </paper-datatable-column>
+        <paper-datatable-column header="Tahun" property="olimpiade_utama" sortable>
+          <template>
+            {{formatOlimpiade(item,value,'tahun')}}
+          </template>
+        </paper-datatable-column>
+        <paper-datatable-column header="Tingkat" property="olimpiade_utama" sortable>
+          <template>
+            {{formatOlimpiade(item,value,'tingkat')}}
+          </template>
+        </paper-datatable-column>
+        <paper-datatable-column header="Email" property="email_utama" sortable>
+          <template>
+            {{formatEmail(item,value)}}
+          </template>
+        </paper-datatable-column>
+        <paper-datatable-column header="Telepon" property="telepon_utama" sortable>
+          <template>
+            {{formatTelepon(item,value)}}
+          </template>
+        </paper-datatable-column>
+        <paper-datatable-column header="Negara" property="negara" sortable></paper-datatable-column>
+        <paper-datatable-column header="Kota" property="kota" sortable></paper-datatable-column>
+      </paper-datatable>
+    </paper-material>
+  </template>
+  <script>
+  (function() {
+    'use strict';
+
+    Polymer({
+      is: 'kawal-alumni-table',
+
+      properties: {
+        
+      },
+
+      ready: function() {
+        this.formatOlimpiade = function(item, value, field) {
+          return item.olimpiade[value][field];
+        };
+        this.formatEmail = function(item, value) {
+          return item.email[value];
+        };
+        this.formatTelepon = function(item, value) {
+          return item.telepon[value];
+        };
+      }
+    });
+  })();
+  </script>
+</dom-module>
